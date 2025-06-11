@@ -1,0 +1,24 @@
+Cube size: 16 * 16 * 16
+Host to device time: 0.048416 ms
+Iterations: 256
+Kernel execution time: 2.831424 ms
+Device to host time: 0.014432 ms
+CPU execution time: 0.881000 ms
+GPU speedup with data transfer: 0.31x
+GPU speedup without data transfer: 0.30x
+GFLOPS of GPU: 2.592346
+GFLOPS of CPU: 8.331477
+r = 1, avg_phi = 0.056021
+r = 2, avg_phi = 0.026601
+r = 3, avg_phi = 0.016063
+r = 4, avg_phi = 0.010258
+r = 5, avg_phi = 0.006232
+r = 6, avg_phi = 0.003611
+r = 7, avg_phi = 0.001871
+r = 8, avg_phi = 0.000811
+r = 9, avg_phi = 0.000292
+r = 10, avg_phi = 0.000080
+r = 11, avg_phi = 0.000012
+r = 12, avg_phi = 0.000004
+r = 13, avg_phi = 0.000000
+r = 14, avg_phi = 0.000000

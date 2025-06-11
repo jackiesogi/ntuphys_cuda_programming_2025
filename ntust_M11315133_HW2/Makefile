@@ -6,13 +6,13 @@ CPP     := g++
 CFLAGS  := -O3 -Wall -g
 NVFLAGS := -O3 -I$(CUDIR)/include -arch=compute_89 -code=sm_89 -Xptxas -v
 
-BIN     := vecAdd
+BIN     := vecDot
 LIB     :=
 
 all: $(BIN)
 
-$(BIN): matAdd.cu
-	nvcc -o $(BIN) $(NVFLAGS) vecAdd.cu $(LIB)
+$(BIN): vecDot.cu
+	nvcc -o $(BIN) $(NVFLAGS) vecDot.cu $(LIB)
 
 clean:
 	rm -f $(BIN)

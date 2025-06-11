@@ -1,141 +1,199 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <time.h>
 
-#define N 6400
-#define NUM_REPEATS 10
+/* initialize random values in the matrix: [-1, 1] */
+void randomInit(float *data, int N) {
+    for (int i = 0; i < N; ++i) {
+        data[i] = 2.0 * (rand() / (float) RAND_MAX) - 1.0;
+    }
+}
 
-float* h_A;
-float* h_C;
-float* d_A;
-float* d_C;
+/* CUDA kernel to sum up diagonal entries using parallel reduction */
+__global__ void matrixTrace(const float* diagonal, float* output, int N) {
+    extern __shared__ float sharedCache[];
 
-void RandomInit(float*, int);
+    int localIdx = threadIdx.x;
+    int globalIdx = blockIdx.x * blockDim.x + threadIdx.x;
+    int stride = blockDim.x * gridDim.x;
 
-// CUDA kernel for trace with parallel reduction
-__global__ void MatrixTrace(const float* A, float* C, int N) {
-    extern __shared__ float cache[];
-
-    int tid = threadIdx.x;
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-
-    float temp = 0.0f;
-    while (i < N) {
-        temp += A[i * N + i];  // access diagonal element
-        i += blockDim.x * gridDim.x;
+    double sum = 0.0f;
+    while (globalIdx < N) {
+        sum += (double) diagonal[globalIdx];
+        globalIdx += stride;
     }
 
-    cache[tid] = temp;
+    sharedCache[localIdx] = sum;
     __syncthreads();
 
-    int ib = blockDim.x / 2;
-    while (ib != 0) {
-        if (tid < ib)
-            cache[tid] += cache[tid + ib];
+    // blockDim.x must be a power of 2
+    for (int offset = blockDim.x / 2; offset > 0; offset >>= 1) {
+        if (localIdx < offset) {
+            sharedCache[localIdx] += sharedCache[localIdx + offset];
+        }
         __syncthreads();
-        ib /= 2;
     }
 
-    if (tid == 0)
-        C[blockIdx.x] = cache[0];
+    if (localIdx == 0)
+        output[blockIdx.x] = (float) sharedCache[0];
 }
 
+/* main program */
 int main(void) {
-    cudaError_t err;
+    cudaError_t errorCode;
 
-    // Allocate host memory
-    int matrixSize = N * N;
-    int size = matrixSize * sizeof(float);
-
-    h_A = (float*)malloc(size);
-    RandomInit(h_A, matrixSize);
-
-    // Allocate device memory
-    cudaMalloc((void**)&d_A, size);
-
-    cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
-
-    // Prepare result file
-    FILE* fp = fopen("result.csv", "w");
-    if (!fp) {
-        fprintf(stderr, "Failed to open result.csv for writing\n");
-        return 1;
-    }
-    fprintf(fp, "block_size,avg_time_ms,gflops\n");
-
-    for (int tpb = 1; tpb <= 32; ++tpb) {
-        int threadsPerBlock = tpb;
-        int blocksPerGrid = (N + threadsPerBlock - 1) / threadsPerBlock;
-
-        int sb = blocksPerGrid * sizeof(float);
-        h_C = (float*)malloc(sb);
-        cudaMalloc((void**)&d_C, sb);
-
-        float totalTime = 0.0f;
-
-        // CUDA event timers
-        cudaEvent_t start, stop;
-        cudaEventCreate(&start);
-        cudaEventCreate(&stop);
-
-        int sharedMemSize = threadsPerBlock * sizeof(float);
-
-        for (int repeat = 0; repeat < NUM_REPEATS; ++repeat) {
-            cudaEventRecord(start, 0);
-            MatrixTrace<<<blocksPerGrid, threadsPerBlock, sharedMemSize>>>(d_A, d_C, N);
-            cudaEventRecord(stop, 0);
-            cudaEventSynchronize(stop);
-
-            float ms;
-            cudaEventElapsedTime(&ms, start, stop);
-            totalTime += ms;
-        }
-
-        float avgTime = totalTime / NUM_REPEATS;
-
-        cudaMemcpy(h_C, d_C, sb, cudaMemcpyDeviceToHost);
-
-        // sum partial results from each block to get final trace
-        double gpu_result = 0.0;
-        for (int i = 0; i < blocksPerGrid; i++)
-            gpu_result += (double)h_C[i];
-
-        // Compute GFLOPS: 2*N operations (sum N elements with add)
-        // Here the operation count is N (sum), but to be consistent with original: 2*N*N (matrix multiply), 
-        // but trace sum is only N additions, so GFLOPS is low.
-        // For meaningful performance, we can report:
-        // FLOPS = N operations (N additions), but GPU FLOPS is low here.
-        // We'll just report time here.
-        float gflops = (float)(N) / (avgTime / 1000.0f) / 1e9f;  // in GFLOPS (very small)
-
-        fprintf(fp, "%d,%.5f,%.9f\n", threadsPerBlock, avgTime, gflops);
-
-        printf("Block size: %d, Avg time: %.5f ms, GPU Trace: %.15e\n", threadsPerBlock, avgTime, gpu_result);
-
-        cudaFree(d_C);
-        free(h_C);
-
-        cudaEventDestroy(start);
-        cudaEventDestroy(stop);
+    int gpuId = 0;
+    scanf("%d", &gpuId);
+    if (cudaSuccess != (errorCode = cudaSetDevice(gpuId))) {
+        printf("[Error] %s\n", cudaGetErrorString(errorCode));
+        exit(1);
     }
 
-    // CPU verification
-    double cpu_result = 0.0;
+    int threadsPerBlock;
+    scanf("%d", &threadsPerBlock);
+    if (threadsPerBlock > 1024) {
+        printf("[Error] The number of threads per block must be less than 1024!\n");
+        exit(1);
+    } else if (threadsPerBlock <= 0) {
+        printf("[Error] The number of threads per block must be positive!\n");
+        exit(1);
+    } else if ((threadsPerBlock & (threadsPerBlock - 1)) != 0) {
+        printf("[Error] The number of threads per block must be a power of 2!\n");
+        exit(1);
+    } else {
+        printf("Number of threads per block: %d\n", threadsPerBlock);
+    }
+
+    int blocksPerGrid;
+    scanf("%d", &blocksPerGrid);
+    if (blocksPerGrid > 2147483647) {
+        printf("The number of blocks per grid must be less than 2147483647!\n");
+        exit(1);
+    } else if (blocksPerGrid <= 0) {
+        printf("The number of blocks per grid must be positive!\n");
+        exit(1);
+    } else {
+        printf("Number of blocks per grid: %d\n", blocksPerGrid);
+    }
+
+    /* allocate pinned host memory for diagonal and partial output */
+    int N = 1 << 30;
+    printf("Size of diagonal: %d\n", N);
+
+    float *hostDiagonal, *hostPartialOutput;
+    if (cudaSuccess != (errorCode = cudaMallocHost((void**) &hostDiagonal, N * sizeof(float))) ||
+        cudaSuccess != (errorCode = cudaMallocHost((void**) &hostPartialOutput, blocksPerGrid * sizeof(float)))) {
+        printf("[Error] %s\n", cudaGetErrorString(errorCode));
+        exit(1);
+    }
+
+    /* allocate and initialize matrix, then extract the diagonal */
+    // int M = N * N;
+    // float *hostMatrix = (float*) malloc(M * sizeof(float));
+    // randomInit(hostMatrix, M);
+
+    // for (int i = 0; i < N; i++) {
+    //     hostDiagonal[i] = hostMatrix[i * N + i];
+    // }
+    // free(hostMatrix);
+
+    /* allocate diagonal and initialize */
+    randomInit(hostDiagonal, N);
+
+    /* allocate device memory */
+    float *deviceDiagonal, *devicePartialOutput;
+    if (cudaSuccess != (errorCode = cudaMalloc((void**) &deviceDiagonal, N * sizeof(float))) ||
+        cudaSuccess != (errorCode = cudaMalloc((void**) &devicePartialOutput, blocksPerGrid * sizeof(float)))) {
+        printf("[Error] %s\n", cudaGetErrorString(errorCode));
+        exit(1);
+    }
+
+    /* create GPU timer events */
+    cudaEvent_t gpuStart, gpuEnd;
+    cudaEventCreate(&gpuStart);
+    cudaEventCreate(&gpuEnd);
+
+    /* copy the diagonal data from the host to the device */
+    cudaEventRecord(gpuStart, 0);
+    cudaMemcpy(deviceDiagonal, hostDiagonal, N * sizeof(float), cudaMemcpyHostToDevice);
+    cudaEventRecord(gpuEnd, 0);
+    cudaEventSynchronize(gpuEnd);
+
+    float host2DeviceTime;
+    cudaEventElapsedTime(&host2DeviceTime, gpuStart, gpuEnd);
+    printf("Time for data transfer from host to device: %f ms\n", host2DeviceTime);
+
+    /* launch kernel */
+    int sharedMemSize = threadsPerBlock * sizeof(float);
+    cudaEventRecord(gpuStart, 0);
+    matrixTrace<<<blocksPerGrid, threadsPerBlock, sharedMemSize>>>(deviceDiagonal, devicePartialOutput, N);
+    cudaEventRecord(gpuEnd, 0);
+    cudaEventSynchronize(gpuEnd);
+
+    float kernelTime;
+    cudaEventElapsedTime(&kernelTime, gpuStart, gpuEnd);
+    printf("Time for kernel execution: %f ms\n", kernelTime);
+
+    /* copy the result from the device to the host */
+    cudaEventRecord(gpuStart, 0);
+    cudaMemcpy(hostPartialOutput, devicePartialOutput, blocksPerGrid * sizeof(float), cudaMemcpyDeviceToHost);
+    cudaEventRecord(gpuEnd, 0);
+    cudaEventSynchronize(gpuEnd);
+
+    float device2HostTime;
+    cudaEventElapsedTime(&device2HostTime, gpuStart, gpuEnd);
+    printf("Time for data transfer from device to host: %f ms\n", device2HostTime);
+
+    /* clean up GPU memory */
+    cudaFree(deviceDiagonal);
+    cudaFree(devicePartialOutput);
+
+    /* destroy GPU timers */
+    cudaEventDestroy(gpuStart);
+    cudaEventDestroy(gpuEnd);
+
+    /* sum up the partial outputs */
+    struct timespec cpuStart, cpuEnd;
+
+    clock_gettime(CLOCK_MONOTONIC, &cpuStart);
+    double gpuResult = 0.0;
+    for (int i = 0; i < blocksPerGrid; i++) {
+        gpuResult += (double) hostPartialOutput[i];
+    }
+    clock_gettime(CLOCK_MONOTONIC, &cpuEnd);
+
+    float mergeTime = (cpuEnd.tv_sec - cpuStart.tv_sec) * 1000.0 + (cpuEnd.tv_nsec - cpuStart.tv_nsec) / 1000000.0;
+    printf("Time for merging partial outputs: %f ms\n", mergeTime);
+
+    float gpuTime = host2DeviceTime + kernelTime + device2HostTime + mergeTime;
+    printf("Time for GPU execution: %f ms\n", gpuTime);
+
+    /* CPU baseline for correctness check */
+    double cpuResult = 0.0;
+    clock_gettime(CLOCK_MONOTONIC, &cpuStart);
     for (int i = 0; i < N; i++)
-        cpu_result += h_A[i * N + i];
-    printf("CPU Trace: %.15e\n", cpu_result);
+        cpuResult += (double) hostDiagonal[i];
+    clock_gettime(CLOCK_MONOTONIC, &cpuEnd);
 
-    free(h_A);
-    cudaFree(d_A);
-    fclose(fp);
+    float cpuTime = (cpuEnd.tv_sec - cpuStart.tv_sec) * 1000.0 + (cpuEnd.tv_nsec - cpuStart.tv_nsec) / 1000000.0;
+    printf("Time for CPU execution: %f ms\n", cpuTime);
+
+    /* calculate speedup and GFLOPS */
+    printf("GPU speedup with data transfer: %.2fx\n", cpuTime / gpuTime);
+    printf("GPU speedup without data transfer: %.2fx\n", cpuTime / (kernelTime + mergeTime));
+
+    printf("GFLOPS of GPU: %f\n", N / (1000000.0 * kernelTime));
+    printf("GFLOPS of CPU: %f\n", N / (1000000.0 * cpuTime));
+
+    /* accuracy check */
+    double diff = fabs((cpuResult - gpuResult) / cpuResult);
+    printf("|(CPU - GPU)/CPU| = %.15e\n\n", diff);
+
+    /* free memory */
+    cudaFreeHost(hostDiagonal);
+    cudaFreeHost(hostPartialOutput);
 
     cudaDeviceReset();
-
     return 0;
 }
-
-void RandomInit(float* data, int n) {
-    for (int i = 0; i < n; ++i)
-        data[i] = 2.0f * rand() / (float)RAND_MAX - 1.0f;
-}
-

@@ -1,0 +1,10 @@
+2
+GPU_ID1 GPU_ID2
+1024
+32
+
+==================================================
+Num GPU
+GPU_ID  # device number to be assigned by condor
+Thread per Block
+Blocks per Grid

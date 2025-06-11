@@ -1,0 +1,198 @@
+GPU count: 2
+Threads per block: 1024
+Blocks per grid: 512
+Host to device time: 36.12 s
+Kernel time: 3.41 s
+Device to host time: 17.02 s
+Total GPU time: 56.55 s
+GFLOPS: 3.69
+
+GPU count: 2
+Threads per block: 512
+Blocks per grid: 1024
+Host to device time: 35.91 s
+Kernel time: 3.25 s
+Device to host time: 16.94 s
+Total GPU time: 56.10 s
+GFLOPS: 3.72
+
+GPU count: 2
+Threads per block: 256
+Blocks per grid: 2048
+Host to device time: 35.75 s
+Kernel time: 3.14 s
+Device to host time: 16.89 s
+Total GPU time: 55.78 s
+GFLOPS: 3.76
+
+GPU count: 2
+Threads per block: 128
+Blocks per grid: 4096
+Host to device time: 35.83 s
+Kernel time: 3.11 s
+Device to host time: 16.92 s
+Total GPU time: 55.86 s
+GFLOPS: 3.74
+
+GPU count: 2
+Threads per block: 64
+Blocks per grid: 8192
+Host to device time: 35.64 s
+Kernel time: 3.27 s
+Device to host time: 16.90 s
+Total GPU time: 55.81 s
+GFLOPS: 3.75
+
+GPU count: 2
+Threads per block: 32
+Blocks per grid: 16384
+Host to device time: 35.77 s
+Kernel time: 4.55 s
+Device to host time: 16.88 s
+Total GPU time: 57.20 s
+GFLOPS: 3.62
+
+GPU count: 2
+Threads per block: 16
+Blocks per grid: 32768
+Host to device time: 35.70 s
+Kernel time: 8.39 s
+Device to host time: 16.89 s
+Total GPU time: 60.98 s
+GFLOPS: 3.45
+
+GPU count: 2
+Threads per block: 8
+Blocks per grid: 65536
+Host to device time: 35.54 s
+Kernel time: 17.12 s
+Device to host time: 16.87 s
+Total GPU time: 69.53 s
+GFLOPS: 3.00
+
+GPU count: 2
+Threads per block: 4
+Blocks per grid: 131072
+Host to device time: 35.89 s
+Kernel time: 31.42 s
+Device to host time: 16.93 s
+Total GPU time: 84.24 s
+GFLOPS: 2.52
+
+GPU count: 2
+Threads per block: 2
+Blocks per grid: 262144
+Host to device time: 35.81 s
+Kernel time: 63.78 s
+Device to host time: 16.91 s
+Total GPU time: 116.50 s
+GFLOPS: 1.79
+
+GPU count: 2
+Threads per block: 1
+Blocks per grid: 524288
+Host to device time: 35.83 s
+Kernel time: 124.87 s
+Device to host time: 16.91 s
+Total GPU time: 177.61 s
+GFLOPS: 1.22
+
+GPU count: 1
+Threads per block: 1024
+Blocks per grid: 1024
+Host to device time: 34.92 s
+Kernel time: 6.25 s
+Device to host time: 32.81 s
+Total GPU time: 73.98 s
+GFLOPS: 2.78
+
+GPU count: 1
+Threads per block: 512
+Blocks per grid: 2048
+Host to device time: 35.14 s
+Kernel time: 6.12 s
+Device to host time: 32.76 s
+Total GPU time: 74.02 s
+GFLOPS: 2.82
+
+GPU count: 1
+Threads per block: 256
+Blocks per grid: 4096
+Host to device time: 34.98 s
+Kernel time: 5.96 s
+Device to host time: 32.73 s
+Total GPU time: 73.67 s
+GFLOPS: 2.85
+
+GPU count: 1
+Threads per block: 128
+Blocks per grid: 8192
+Host to device time: 35.01 s
+Kernel time: 5.88 s
+Device to host time: 32.70 s
+Total GPU time: 73.59 s
+GFLOPS: 2.87
+
+GPU count: 1
+Threads per block: 64
+Blocks per grid: 16384
+Host to device time: 34.95 s
+Kernel time: 6.10 s
+Device to host time: 32.75 s
+Total GPU time: 73.80 s
+GFLOPS: 2.83
+
+GPU count: 1
+Threads per block: 32
+Blocks per grid: 32768
+Host to device time: 34.88 s
+Kernel time: 8.55 s
+Device to host time: 32.72 s
+Total GPU time: 76.15 s
+GFLOPS: 2.73
+
+GPU count: 1
+Threads per block: 16
+Blocks per grid: 65536
+Host to device time: 34.81 s
+Kernel time: 16.50 s
+Device to host time: 32.69 s
+Total GPU time: 83.99 s
+GFLOPS: 2.48
+
+GPU count: 1
+Threads per block: 8
+Blocks per grid: 131072
+Host to device time: 34.90 s
+Kernel time: 33.10 s
+Device to host time: 32.65 s
+Total GPU time: 100.65 s
+GFLOPS: 2.11
+
+GPU count: 1
+Threads per block: 4
+Blocks per grid: 262144
+Host to device time: 34.82 s
+Kernel time: 62.38 s
+Device to host time: 32.68 s
+Total GPU time: 129.88 s
+GFLOPS: 1.63
+
+GPU count: 1
+Threads per block: 2
+Blocks per grid: 524288
+Host to device time: 34.83 s
+Kernel time: 124.23 s
+Device to host time: 32.66 s
+Total GPU time: 191.72 s
+GFLOPS: 1.12
+
+GPU count: 1
+Threads per block: 1
+Blocks per grid: 1048576
+Host to device time: 34.95 s
+Kernel time: 248.90 s
+Device to host time: 32.75 s
+Total GPU time: 316.60 s
+GFLOPS: 0.64
+

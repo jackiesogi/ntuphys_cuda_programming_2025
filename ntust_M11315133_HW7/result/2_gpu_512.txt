@@ -1,0 +1,9 @@
+  Enter the number of GPUs (NGx, NGy): 2 1
+  * Enter the GPU ID (0/1/...): 0
+  * Enter the GPU ID (0/1/...): 2
+How many samples to be generated ?
+Samples size: 512
+c = 1.582296
+a = 1.000000
+Simple sampling (GPU‐parallel):     0.2368370041 +/- 0.0025406600
+Metropolis sampling (GPU‐parallel): 0.2503585260 +/- 0.0094391330

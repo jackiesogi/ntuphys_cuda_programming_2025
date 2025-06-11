@@ -1,0 +1,5 @@
+Monte Carlo integration results:
+Number of Samples:   2048
+Simple sampling:     0.2418403191 +/- 0.0012322096
+Metropolis sampling with Importance: 0.2410371724 +/- 0.0041685550
+==================================================

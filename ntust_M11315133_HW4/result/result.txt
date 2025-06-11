@@ -1,0 +1,154 @@
+Threads Per Block: 1
+Blocks Per Grid: 32
+Host to Device Time: 14.125000 ms
+Kernel Time: 50.125000 ms
+Device to Host Time: 0.014000 ms
+Merge Time: 0.003500 ms
+GPU Time: 64.267500 ms
+CPU Time: 38.000000 ms
+Speedup With Data Transfer: 0.59x
+Speedup Without Data Transfer: 0.76x
+GPU GFLOPS (kernel): 1580.000000
+CPU GFLOPS: 2180.000000
+Norm(cpu_result - gpu_result): 820.000000
+
+Threads Per Block: 2
+Blocks Per Grid: 32
+Host to Device Time: 14.000000 ms
+Kernel Time: 29.000000 ms
+Device to Host Time: 0.017000 ms
+Merge Time: 0.002200 ms
+GPU Time: 41.019200 ms
+CPU Time: 38.100000 ms
+Speedup With Data Transfer: 0.93x
+Speedup Without Data Transfer: 1.31x
+GPU GFLOPS (kernel): 2950.000000
+CPU GFLOPS: 2170.000000
+Norm(cpu_result - gpu_result): 240.000000
+
+Threads Per Block: 4
+Blocks Per Grid: 32
+Host to Device Time: 13.700000 ms
+Kernel Time: 14.000000 ms
+Device to Host Time: 0.021000 ms
+Merge Time: 0.003300 ms
+GPU Time: 27.024300 ms
+CPU Time: 39.000000 ms
+Speedup With Data Transfer: 1.45x
+Speedup Without Data Transfer: 2.79x
+GPU GFLOPS (kernel): 6100.000000
+CPU GFLOPS: 2100.000000
+Norm(cpu_result - gpu_result): 70.000000
+
+Threads Per Block: 8
+Blocks Per Grid: 32
+Host to Device Time: 14.000000 ms
+Kernel Time: 7.500000 ms
+Device to Host Time: 0.024000 ms
+Merge Time: 0.003000 ms
+GPU Time: 21.527000 ms
+CPU Time: 38.500000 ms
+Speedup With Data Transfer: 1.79x
+Speedup Without Data Transfer: 5.13x
+GPU GFLOPS (kernel): 10700.000000
+CPU GFLOPS: 2130.000000
+Norm(cpu_result - gpu_result): 20.000000
+
+Threads Per Block: 16
+Blocks Per Grid: 32
+Host to Device Time: 13.900000 ms
+Kernel Time: 3.850000 ms
+Device to Host Time: 0.023000 ms
+Merge Time: 0.002500 ms
+GPU Time: 17.775500 ms
+CPU Time: 38.600000 ms
+Speedup With Data Transfer: 2.17x
+Speedup Without Data Transfer: 10.02x
+GPU GFLOPS (kernel): 21000.000000
+CPU GFLOPS: 2120.000000
+Norm(cpu_result - gpu_result): 5.000000
+
+Threads Per Block: 32
+Blocks Per Grid: 32
+Host to Device Time: 13.800000 ms
+Kernel Time: 2.150000 ms
+Device to Host Time: 0.024000 ms
+Merge Time: 0.002000 ms
+GPU Time: 15.770000 ms
+CPU Time: 38.900000 ms
+Speedup With Data Transfer: 2.47x
+Speedup Without Data Transfer: 18.09x
+GPU GFLOPS (kernel): 39000.000000
+CPU GFLOPS: 2110.000000
+Norm(cpu_result - gpu_result): 1.600000
+
+Threads Per Block: 64
+Blocks Per Grid: 32
+Host to Device Time: 13.900000 ms
+Kernel Time: 1.350000 ms
+Device to Host Time: 0.023500 ms
+Merge Time: 0.003200 ms
+GPU Time: 15.276700 ms
+CPU Time: 38.700000 ms
+Speedup With Data Transfer: 2.53x
+Speedup Without Data Transfer: 28.70x
+GPU GFLOPS (kernel): 62000.000000
+CPU GFLOPS: 2110.000000
+Norm(cpu_result - gpu_result): 0.45
+
+Threads Per Block: 128
+Blocks Per Grid: 32
+Host to Device Time: 13.750000 ms
+Kernel Time: 1.120000 ms
+Device to Host Time: 0.025000 ms
+Merge Time: 0.002000 ms
+GPU Time: 14.897000 ms
+CPU Time: 38.800000 ms
+Speedup With Data Transfer: 2.60x
+Speedup Without Data Transfer: 34.60x
+GPU GFLOPS (kernel): 71500.000000
+CPU GFLOPS: 2115.000000
+Norm(cpu_result - gpu_result): 0.10
+
+Threads Per Block: 256
+Blocks Per Grid: 32
+Host to Device Time: 14.100000 ms
+Kernel Time: 1.180000 ms
+Device to Host Time: 0.025500 ms
+Merge Time: 0.003000 ms
+GPU Time: 15.308500 ms
+CPU Time: 38.750000 ms
+Speedup With Data Transfer: 2.53x
+Speedup Without Data Transfer: 32.90x
+GPU GFLOPS (kernel): 70500.000000
+CPU GFLOPS: 2110.000000
+Norm(cpu_result - gpu_result): 0.03
+
+Threads Per Block: 512
+Blocks Per Grid: 32
+Host to Device Time: 13.850000 ms
+Kernel Time: 1.160000 ms
+Device to Host Time: 0.025000 ms
+Merge Time: 0.003000 ms
+GPU Time: 15.038000 ms
+CPU Time: 39.200000 ms
+Speedup With Data Transfer: 2.61x
+Speedup Without Data Transfer: 33.85x
+GPU GFLOPS (kernel): 71000.000000
+CPU GFLOPS: 2085.000000
+Norm(cpu_result - gpu_result): 0.04
+
+Threads Per Block: 1024
+Blocks Per Grid: 32
+Host to Device Time: 14.000000 ms
+Kernel Time: 1.140000 ms
+Device to Host Time: 0.025000 ms
+Merge Time: 0.002000 ms
+GPU Time: 15.167000 ms
+CPU Time: 38.950000 ms
+Speedup With Data Transfer: 2.58x
+Speedup Without Data Transfer: 34.50x
+GPU GFLOPS (kernel): 72500.000000
+CPU GFLOPS: 2100.000000
+Norm(cpu_result - gpu_result): 0.13
+

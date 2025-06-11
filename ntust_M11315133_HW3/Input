@@ -1,0 +1,6 @@
+GPU_ID
+64
+
+==================================================
+GPU_ID  # device number to be assigned by condor
+L

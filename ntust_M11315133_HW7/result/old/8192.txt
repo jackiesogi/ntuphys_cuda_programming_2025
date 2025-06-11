@@ -1,0 +1,6 @@
+How many samples to be generated ?
+Samples size: 8192
+Normalization constant (c) = 1.582296
+Exponential decay constant (a) = 1.000000
+Simple sampling:     0.2429043251 +/- 0.0006418727
+Metropolis sampling with Importance: 0.2409042874 +/- 0.0020957798

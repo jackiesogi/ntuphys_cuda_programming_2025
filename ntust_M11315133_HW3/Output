@@ -1,0 +1,148 @@
+Cube size: 8 * 8 * 8
+Host to device time: 0.030976 ms
+Iterations: 64
+Kernel execution time: 0.616320 ms
+Device to host time: 0.013344 ms
+CPU execution time: 0.034000 ms
+GPU speedup with data transfer: 0.06x
+GPU speedup without data transfer: 0.05x
+GFLOPS of GPU: 0.372170
+GFLOPS of CPU: 6.746353
+r = 1, avg_phi = 0.044281
+r = 2, avg_phi = 0.014968
+r = 3, avg_phi = 0.004367
+r = 4, avg_phi = 0.000915
+r = 5, avg_phi = 0.000054
+r = 6, avg_phi = 0.000000
+r = 7, avg_phi = 0.000000
+
+Cube size: 16 * 16 * 16
+Host to device time: 0.044224 ms
+Iterations: 256
+Kernel execution time: 2.848928 ms
+Device to host time: 0.014080 ms
+CPU execution time: 0.905000 ms
+GPU speedup with data transfer: 0.32x
+GPU speedup without data transfer: 0.31x
+GFLOPS of GPU: 2.576419
+GFLOPS of CPU: 8.110533
+r = 1, avg_phi = 0.056020
+r = 2, avg_phi = 0.026601
+r = 3, avg_phi = 0.016063
+r = 4, avg_phi = 0.010257
+r = 5, avg_phi = 0.006232
+r = 6, avg_phi = 0.003611
+r = 7, avg_phi = 0.001869
+r = 8, avg_phi = 0.000811
+r = 9, avg_phi = 0.000292
+r = 10, avg_phi = 0.000080
+r = 11, avg_phi = 0.000012
+r = 12, avg_phi = 0.000004
+r = 13, avg_phi = 0.000000
+r = 14, avg_phi = 0.000000
+
+Cube size: 32 * 32 * 32
+Host to device time: 0.062336 ms
+Iterations: 1024
+Kernel execution time: 33.816734 ms
+Device to host time: 0.021728 ms
+CPU execution time: 24.577999 ms
+GPU speedup with data transfer: 0.73x
+GPU speedup without data transfer: 0.72x
+GFLOPS of GPU: 6.945704
+GFLOPS of CPU: 9.556556
+r = 1, avg_phi = 0.060927
+r = 2, avg_phi = 0.031512
+r = 3, avg_phi = 0.020470
+r = 4, avg_phi = 0.015157
+r = 5, avg_phi = 0.011124
+r = 6, avg_phi = 0.008485
+r = 7, avg_phi = 0.006735
+r = 8, avg_phi = 0.005395
+r = 9, avg_phi = 0.004279
+r = 10, avg_phi = 0.003363
+r = 11, avg_phi = 0.002676
+r = 12, avg_phi = 0.002104
+r = 13, avg_phi = 0.001587
+r = 14, avg_phi = 0.001154
+r = 15, avg_phi = 0.000791
+r = 16, avg_phi = 0.000497
+r = 17, avg_phi = 0.000336
+r = 18, avg_phi = 0.000215
+r = 19, avg_phi = 0.000148
+r = 20, avg_phi = 0.000079
+r = 21, avg_phi = 0.000037
+r = 22, avg_phi = 0.000018
+r = 23, avg_phi = 0.000011
+r = 24, avg_phi = 0.000003
+r = 25, avg_phi = 0.000000
+r = 26, avg_phi = 0.000000
+r = 27, avg_phi = 0.000000
+r = 28, avg_phi = 0.000000
+
+Cube size: 64 * 64 * 64
+Host to device time: 0.284128 ms
+Iterations: 4096
+Kernel execution time: 712.808655 ms
+Device to host time: 0.091424 ms
+CPU execution time: 988.765991 ms
+GPU speedup with data transfer: 1.39x
+GPU speedup without data transfer: 1.39x
+GFLOPS of GPU: 10.544475
+GFLOPS of CPU: 7.601589
+r = 1, avg_phi = 0.061259
+r = 2, avg_phi = 0.033821
+r = 3, avg_phi = 0.022274
+r = 4, avg_phi = 0.015464
+r = 5, avg_phi = 0.013430
+r = 6, avg_phi = 0.010788
+r = 7, avg_phi = 0.009035
+r = 8, avg_phi = 0.007614
+r = 9, avg_phi = 0.006462
+r = 10, avg_phi = 0.005658
+r = 11, avg_phi = 0.004867
+r = 12, avg_phi = 0.004388
+r = 13, avg_phi = 0.003873
+r = 14, avg_phi = 0.003435
+r = 15, avg_phi = 0.003072
+r = 16, avg_phi = 0.002746
+r = 17, avg_phi = 0.002447
+r = 18, avg_phi = 0.002183
+r = 19, avg_phi = 0.001956
+r = 20, avg_phi = 0.001752
+r = 21, avg_phi = 0.001562
+r = 22, avg_phi = 0.001389
+r = 23, avg_phi = 0.001236
+r = 24, avg_phi = 0.001094
+r = 25, avg_phi = 0.000962
+r = 26, avg_phi = 0.000829
+r = 27, avg_phi = 0.000731
+r = 28, avg_phi = 0.000625
+r = 29, avg_phi = 0.000525
+r = 30, avg_phi = 0.000436
+r = 31, avg_phi = 0.000353
+r = 32, avg_phi = 0.000283
+r = 33, avg_phi = 0.000214
+r = 34, avg_phi = 0.000188
+r = 35, avg_phi = 0.000161
+r = 36, avg_phi = 0.000139
+r = 37, avg_phi = 0.000107
+r = 38, avg_phi = 0.000085
+r = 39, avg_phi = 0.000064
+r = 40, avg_phi = 0.000049
+r = 41, avg_phi = 0.000037
+r = 42, avg_phi = 0.000029
+r = 43, avg_phi = 0.000019
+r = 44, avg_phi = 0.000014
+r = 45, avg_phi = 0.000011
+r = 46, avg_phi = 0.000009
+r = 47, avg_phi = 0.000004
+r = 48, avg_phi = 0.000003
+r = 49, avg_phi = 0.000002
+r = 50, avg_phi = 0.000001
+r = 51, avg_phi = 0.000001
+r = 52, avg_phi = 0.000001
+r = 53, avg_phi = 0.000000
+r = 54, avg_phi = 0.000000
+r = 55, avg_phi = 0.000000
+
